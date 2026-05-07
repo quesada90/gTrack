@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bash \"/Users/javierquesada/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/fa5d88ae-f44f-4704-9ec4-2811821af5ea/04e21275-b7bf-47a8-b7e5-8a466ef903de/skills/web-artifacts-builder/scripts/init-artifact.sh\" gtrack-app)",
+      "Bash(npm create *)",
+      "Bash(npm install *)",
+      "Bash(npx tailwindcss *)",
+      "Bash(npx tsc *)",
+      "Bash(bash \"/Users/javierquesada/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/fa5d88ae-f44f-4704-9ec4-2811821af5ea/04e21275-b7bf-47a8-b7e5-8a466ef903de/skills/web-artifacts-builder/scripts/bundle-artifact.sh\")",
+      "Bash(COREPACK_ENABLE_AUTO_PIN=0 npm install --save-dev parcel @parcel/config-default parcel-resolver-tspaths html-inline)",
+      "Bash(npx parcel *)",
+      "Bash(npx vite *)",
+      "Bash(gh auth *)",
+      "Bash(gh api *)",
+      "Bash(brew install *)",
+      "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")",
+      "Read(//Users/javierquesada/.config/**)",
+      "Read(//Users/javierquesada/.config/gh/**)"
+    ]
+  }
+}
