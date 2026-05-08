@@ -16,7 +16,10 @@
       "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")",
       "Read(//Users/javierquesada/.config/**)",
       "Read(//Users/javierquesada/.config/gh/**)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(convert --version)",
+      "Bash(python3 -c \"from PIL import Image; print\\('PIL OK'\\)\")",
+      "Bash(node *)"
     ]
   }
 }
