@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Screen, DayRoutine, LastSession, SwimEntry } from './types'
-import { RUTINA } from './data/rutina'
+import { Screen, DayRoutine, LastSession, SwimEntry, AppConfig, getCurrentWeek } from './types'
+import { RUTINA_FASE1, RUTINA_FASE2 } from './data/rutina'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { HomeScreen } from './screens/HomeScreen'
 import { OverviewScreen } from './screens/OverviewScreen'
@@ -9,7 +9,13 @@ import { RestScreen } from './screens/RestScreen'
 import { TransitionScreen } from './screens/TransitionScreen'
 import { FinishScreen } from './screens/FinishScreen'
 import { SwimScreen } from './screens/SwimScreen'
+import { SetupScreen } from './screens/SetupScreen'
 import './index.css'
+
+const DEFAULT_CONFIG: AppConfig = {
+  startDate: '2026-04-27',
+  currentPhase: 1,
+}
 
 function App() {
   const [screen, setScreen] = useState<Screen>('home')
@@ -17,11 +23,14 @@ function App() {
   const [startedAt, setStartedAt] = useState<string>('')
   const [exerciseIndex, setExerciseIndex] = useState(0)
   const [serieIndex, setSerieIndex] = useState(0)
-  // Track whether last rest was after the last serie of an exercise (triggers transition)
   const [pendingExerciseComplete, setPendingExerciseComplete] = useState(false)
 
   const [lastSession, setLastSession] = useLocalStorage<LastSession | null>('gtrack_last_session', null)
   const [, setSwimLog] = useLocalStorage<SwimEntry[]>('gtrack_swim_log', [])
+  const [config, setConfig] = useLocalStorage<AppConfig>('gtrack_config', DEFAULT_CONFIG)
+
+  const RUTINA = config.currentPhase === 1 ? RUTINA_FASE1 : RUTINA_FASE2
+  const currentWeek = getCurrentWeek(config)
 
   const handleSelectDay = (day: DayRoutine) => {
     setSelectedDay(day)
@@ -43,11 +52,9 @@ function App() {
     const isLastSerie = serieIndex >= exercise.series - 1
 
     if (isLastSerie) {
-      // After rest, we need a transition
       setPendingExerciseComplete(true)
       setScreen('rest')
     } else {
-      // More series to go
       setSerieIndex(s => s + 1)
       setPendingExerciseComplete(false)
       setScreen('rest')
@@ -103,7 +110,16 @@ function App() {
         <HomeScreen
           days={RUTINA}
           lastSession={lastSession}
+          currentWeek={currentWeek}
           onSelectDay={handleSelectDay}
+          onSetup={() => setScreen('setup')}
+        />
+      )}
+      {screen === 'setup' && (
+        <SetupScreen
+          config={config}
+          onSave={setConfig}
+          onBack={() => setScreen('home')}
         />
       )}
       {screen === 'overview' && selectedDay && (
@@ -148,6 +164,7 @@ function App() {
       )}
       {screen === 'swim' && (
         <SwimScreen
+          currentWeek={currentWeek}
           onSave={handleSwimSave}
           onBack={handleHome}
         />

@@ -6,7 +6,9 @@ import { CYCLE } from '../data/rutina'
 interface Props {
   days: DayRoutine[]
   lastSession: LastSession | null
+  currentWeek: number
   onSelectDay: (day: DayRoutine) => void
+  onSetup: () => void
 }
 
 function getNextDay(last: LastSession | null): 'A' | 'B' | 'C' {
@@ -22,7 +24,7 @@ function isToday(dateStr: string): boolean {
   return daysSince(dateStr) === 0
 }
 
-export const HomeScreen: React.FC<Props> = ({ days, lastSession, onSelectDay }) => {
+export const HomeScreen: React.FC<Props> = ({ days, lastSession, currentWeek, onSelectDay, onSetup }) => {
   const suggestedDay = getNextDay(lastSession)
   const trainedToday = lastSession && isToday(lastSession.date)
 
@@ -32,13 +34,23 @@ export const HomeScreen: React.FC<Props> = ({ days, lastSession, onSelectDay }) 
 
   return (
     <div className="flex flex-col min-h-screen px-5 pt-safe-top" style={{ background: 'var(--bg-primary)' }}>
-      <div className="pt-12 pb-6">
+      <div className="pt-12 pb-6 relative">
+        <button
+          onClick={onSetup}
+          className="absolute top-12 right-0 text-xl active:opacity-60 p-1"
+          aria-label="Configuración"
+        >
+          ⚙️
+        </button>
         <div className="text-xs font-mono tracking-widest uppercase mb-2" style={{ color: 'var(--text-muted)' }}>
           {dateFormatted}
         </div>
         <h1 className="text-4xl font-black tracking-tight font-mono" style={{ color: 'var(--text-primary)' }}>
           gTrack
         </h1>
+        <div className="mt-1 text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
+          Semana {currentWeek}
+        </div>
         {lastSession && (
           <div className="mt-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
             {trainedToday

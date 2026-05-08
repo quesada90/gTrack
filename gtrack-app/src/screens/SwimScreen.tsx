@@ -2,7 +2,19 @@ import React, { useState } from 'react'
 import { SwimEntry } from '../types'
 import { BigButton } from '../components/BigButton'
 
+const SWIM_PROGRESSION = [
+  { semana: 1, descripcion: 'Nada cómodo, sin objetivo de distancia' },
+  { semana: 2, descripcion: 'Nada cómodo, sin objetivo de distancia' },
+  { semana: 3, descripcion: 'Nada cómodo, sin objetivo de distancia' },
+  { semana: 4, descripcion: 'Nada cómodo, sin objetivo de distancia' },
+  { semana: 5, descripcion: '4 × 50m con 30s descanso, luego 2 × 25m' },
+  { semana: 6, descripcion: '3 × 75m con 30s descanso' },
+  { semana: 7, descripcion: '2 × 100m con 45s descanso + 1 × 50m' },
+  { semana: 8, descripcion: '1 × 200m continuo + 1 × 100m' },
+]
+
 interface Props {
+  currentWeek: number
   onSave: (entry: SwimEntry) => void
   onBack: () => void
 }
@@ -24,7 +36,9 @@ const labelStyle: React.CSSProperties = {
   display: 'block',
 }
 
-export const SwimScreen: React.FC<Props> = ({ onSave, onBack }) => {
+export const SwimScreen: React.FC<Props> = ({ currentWeek, onSave, onBack }) => {
+  const protocol = SWIM_PROGRESSION.find(p => p.semana === currentWeek)
+    ?? SWIM_PROGRESSION[SWIM_PROGRESSION.length - 1]
   const [swam, setSwam] = useState(true)
   const [distance, setDistance] = useState('')
   const [time, setTime] = useState('')
@@ -56,8 +70,21 @@ export const SwimScreen: React.FC<Props> = ({ onSave, onBack }) => {
       <div className="text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
         🏊 Natación
       </div>
-      <div className="text-sm mb-8" style={{ color: 'var(--text-secondary)' }}>
+      <div className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
         Registra tu sesión de piscina
+      </div>
+
+      {/* Week protocol */}
+      <div
+        className="rounded-xl px-4 py-3 mb-6"
+        style={{ background: 'var(--bg-card)', border: '1px solid var(--border)' }}
+      >
+        <div className="text-xs font-mono mb-1" style={{ color: 'var(--text-muted)' }}>
+          SEMANA {currentWeek} · PROTOCOLO
+        </div>
+        <div className="text-sm font-medium" style={{ color: '#3B82F6' }}>
+          {protocol.descripcion}
+        </div>
       </div>
 
       <div className="flex-1 flex flex-col gap-5">
