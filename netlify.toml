@@ -1,7 +1,7 @@
 [build]
   base      = "gtrack-app"
   command   = "npm run build"
-  publish   = "gtrack-app/dist"
+  publish   = "dist"
 
 [[headers]]
   for = "/*"
