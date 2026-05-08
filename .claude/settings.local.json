@@ -15,7 +15,8 @@
       "Bash(brew install *)",
       "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")",
       "Read(//Users/javierquesada/.config/**)",
-      "Read(//Users/javierquesada/.config/gh/**)"
+      "Read(//Users/javierquesada/.config/gh/**)",
+      "Bash(npm run *)"
     ]
   }
 }

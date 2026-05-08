@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Screen, DayRoutine, LastSession, SwimEntry } from './types'
 import { RUTINA } from './data/rutina'
 import { useLocalStorage } from './hooks/useLocalStorage'
@@ -21,7 +21,7 @@ function App() {
   const [pendingExerciseComplete, setPendingExerciseComplete] = useState(false)
 
   const [lastSession, setLastSession] = useLocalStorage<LastSession | null>('gtrack_last_session', null)
-  const [swimLog, setSwimLog] = useLocalStorage<SwimEntry[]>('gtrack_swim_log', [])
+  const [, setSwimLog] = useLocalStorage<SwimEntry[]>('gtrack_swim_log', [])
 
   const handleSelectDay = (day: DayRoutine) => {
     setSelectedDay(day)
