@@ -1,10 +1,51 @@
-import React from 'react'
+import { useState } from 'react'
 import { DayRoutine } from '../types'
 import { BigButton } from '../components/BigButton'
 import { SeriesDots } from '../components/SeriesDots'
 import { TipAccordion } from '../components/TipAccordion'
 import { ExerciseIllustration } from '../components/ExerciseIllustration'
 import { ProgressBar } from '../components/ProgressBar'
+
+const ExerciseMedia = ({
+  gifUrl,
+  illustrationId,
+  dayColor,
+  nombre,
+}: {
+  gifUrl: string
+  illustrationId: string
+  dayColor: string
+  nombre: string
+}) => {
+  const [gifError, setGifError] = useState(false)
+
+  if (!gifError) {
+    return (
+      <div
+        className="rounded-xl overflow-hidden flex items-center justify-center"
+        style={{ width: 200, height: 200, background: 'var(--bg-elevated)' }}
+      >
+        <img
+          src={gifUrl}
+          alt={nombre}
+          width={200}
+          height={200}
+          style={{ objectFit: 'contain' }}
+          onError={() => setGifError(true)}
+        />
+      </div>
+    )
+  }
+
+  return (
+    <ExerciseIllustration
+      illustrationId={illustrationId}
+      dayColor={dayColor}
+      size={160}
+      animate={true}
+    />
+  )
+}
 
 interface Props {
   day: DayRoutine
@@ -36,13 +77,13 @@ export const WorkoutScreen: React.FC<Props> = ({
         <ProgressBar value={progressValue} total={progressTotal} color={day.color} />
       </div>
 
-      {/* Illustration */}
+      {/* Exercise media */}
       <div className="flex justify-center mb-6">
-        <ExerciseIllustration
+        <ExerciseMedia
+          gifUrl={exercise.gifUrl}
           illustrationId={exercise.illustrationId}
           dayColor={day.color}
-          size={160}
-          animate={true}
+          nombre={exercise.nombre}
         />
       </div>
 

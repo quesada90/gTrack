@@ -339,7 +339,7 @@ const path = require('path');
 
 const datasetPath = process.argv[2];
 if (!datasetPath) {
-  console.error('Usage: node extract-gifs.js <path-to-exercises-dataset>');
+  console.error('Usage: node data/extract-gifs.js ../exercises-dataset');
   process.exit(1);
 }
 

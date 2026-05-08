@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gtrack-v1';
+const CACHE_NAME = 'gtrack-v2';
 
 const PRECACHE_ASSETS = [
   '/',
@@ -6,7 +6,6 @@ const PRECACHE_ASSETS = [
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png',
-  // GIFs — populated in Sprint 3
   '/videos/leg-press.gif',
   '/videos/chest-press.gif',
   '/videos/shoulder-press.gif',

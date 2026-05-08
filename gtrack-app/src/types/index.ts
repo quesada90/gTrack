@@ -8,6 +8,7 @@ export type Exercise = {
   descanso: number
   tip?: string
   isTime?: boolean
+  gifUrl: string
   illustrationId: string
 }
 

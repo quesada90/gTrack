@@ -19,7 +19,8 @@
       "Bash(npm run *)",
       "Bash(convert --version)",
       "Bash(python3 -c \"from PIL import Image; print\\('PIL OK'\\)\")",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(awk '{print $5, $9}')"
     ]
   }
 }
